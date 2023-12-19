@@ -22,6 +22,6 @@ public class UserDaoService {
     }
 
     public List<User> findByUserId(Integer id) {
-        return users.stream().filter(user -> user.getId()==id).toList();
+        return users.stream().filter(user -> user.getId().equals(id)).toList();
     }
 }
