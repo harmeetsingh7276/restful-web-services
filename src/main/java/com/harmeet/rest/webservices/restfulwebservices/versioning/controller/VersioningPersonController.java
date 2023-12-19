@@ -24,8 +24,13 @@ public class VersioningPersonController {
     public PersonV2 getSecondOfPersonUsingParams(){
         return new PersonV2(new Name("Harmeet Singh","Gorowada"));
     }
-//    @GetMapping("/v2/person")
-//    public PersonV2 getSecondOfPerson(){
-//        return new PersonV2(new Name("Harmeet Singh","Gorowada"));
-//    }
+
+    @GetMapping(path="/person/header",headers = "X-API-VERSION=1")
+    public PersonV1 getFirstOfPersonUsingHeaders(){
+        return new PersonV1("Harmeet Singh Gorowada");
+    }
+    @GetMapping(path="/person/header",headers = "X-API-VERSION=2")
+    public PersonV2 getSecondOfPersonUsingHeaders(){
+        return new PersonV2(new Name("Harmeet Singh","Gorowada"));
+    }
 }
