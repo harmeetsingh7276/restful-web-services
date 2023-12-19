@@ -17,12 +17,12 @@ public class UserResource {
     }
 
     @GetMapping("/users")
-    public List<User> retrieveAllUsers(){
+    public List<User> retrieveAllUsers() {
         return userDaoService.findAll();
     }
 
     @GetMapping("/users/{id}")
-    public List<User> retrieveUserById(@PathVariable Integer id){
+    public User retrieveUserById(@PathVariable Integer id) {
         return userDaoService.findByUserId(id);
     }
 }

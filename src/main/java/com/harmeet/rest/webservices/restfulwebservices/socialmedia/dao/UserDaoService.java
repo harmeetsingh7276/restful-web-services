@@ -21,7 +21,7 @@ public class UserDaoService {
         return users;
     }
 
-    public List<User> findByUserId(Integer id) {
-        return users.stream().filter(user -> user.getId().equals(id)).toList();
+    public User findByUserId(Integer id) {
+        return users.stream().filter(user -> user.getId().equals(id)).findFirst().get();
     }
 }
