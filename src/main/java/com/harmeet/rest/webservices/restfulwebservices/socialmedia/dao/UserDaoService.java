@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class UserDaoService {
     private static List<User> users = new ArrayList<>();
-    private static int userCount=0;
+    private static int userCount = 0;
 
     static {
         users.add(new User(++userCount, "Harmeet", LocalDate.now().minusYears(30)));
@@ -30,5 +30,9 @@ public class UserDaoService {
         user.setId(++userCount);
         users.add(user);
         return user;
+    }
+
+    public void deleteById(Integer id) {
+        users.removeIf(user -> user.getId().equals(id));
     }
 }
