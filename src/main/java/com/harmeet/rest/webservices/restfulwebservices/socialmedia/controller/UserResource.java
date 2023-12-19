@@ -3,6 +3,7 @@ package com.harmeet.rest.webservices.restfulwebservices.socialmedia.controller;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.exception.UserNotFoundException;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.dao.UserDaoService;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.user.User;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,7 +34,7 @@ public class UserResource {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = userDaoService.save(user);
         //Gives you the url from where you can fetch that resource
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
