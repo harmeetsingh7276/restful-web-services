@@ -2,9 +2,7 @@ package com.harmeet.rest.webservices.restfulwebservices.socialmedia.controller;
 
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.dao.UserDaoService;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.user.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +21,11 @@ public class UserResource {
 
     @GetMapping("/users/{id}")
     public User retrieveUserById(@PathVariable Integer id) {
-        return userDaoService.findByUserId(id);
+        return userDaoService.findOne(id);
+    }
+
+    @PostMapping("/users")
+    public void createUser(@RequestBody User user) {
+        userDaoService.save(user);
     }
 }
