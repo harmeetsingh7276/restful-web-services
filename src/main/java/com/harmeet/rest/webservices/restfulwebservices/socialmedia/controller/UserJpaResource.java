@@ -43,10 +43,7 @@ public class UserJpaResource {
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = userRepository.save(user);
         //Gives you the url from where you can fetch that resource
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedUser.getId())
-                .toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
@@ -72,10 +69,7 @@ public class UserJpaResource {
         }
         post.setUser(user.get());
         Post savedPost = postRepository.save(post);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedPost.getId())
-                .toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedPost.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
