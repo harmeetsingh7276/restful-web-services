@@ -2,6 +2,7 @@ package com.harmeet.rest.webservices.restfulwebservices.socialmedia.controller;
 
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.dao.UserRepository;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.exception.UserNotFoundException;
+import com.harmeet.rest.webservices.restfulwebservices.socialmedia.model.Post;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.model.User;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @RestController
 public class UserJpaResource {
     private UserRepository userRepository;
+
     public UserJpaResource(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -47,5 +49,14 @@ public class UserJpaResource {
     @DeleteMapping("/jpa/users/{id}")
     public void deleteUserById(@PathVariable Integer id) {
         userRepository.deleteById(id);
+    }
+
+    @GetMapping("/jpa/users/{id}/posts")
+    public List<Post> retrievePostForUser(@PathVariable Integer id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()) {
+            throw new UserNotFoundException("id:" + id);
+        }
+        return user.get().getPosts();
     }
 }
