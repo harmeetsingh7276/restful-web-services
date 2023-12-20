@@ -1,4 +1,4 @@
-package com.harmeet.rest.webservices.restfulwebservices.socialmedia.user;
+package com.harmeet.rest.webservices.restfulwebservices.socialmedia.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
