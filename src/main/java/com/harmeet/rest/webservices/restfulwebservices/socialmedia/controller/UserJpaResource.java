@@ -2,6 +2,7 @@ package com.harmeet.rest.webservices.restfulwebservices.socialmedia.controller;
 
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.dao.PostRepository;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.dao.UserRepository;
+import com.harmeet.rest.webservices.restfulwebservices.socialmedia.exception.PostNotFoundException;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.exception.UserNotFoundException;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.model.Post;
 import com.harmeet.rest.webservices.restfulwebservices.socialmedia.model.User;
@@ -70,11 +71,25 @@ public class UserJpaResource {
             throw new UserNotFoundException("id:" + id);
         }
         post.setUser(user.get());
-        Post savedPost=postRepository.save(post);
+        Post savedPost = postRepository.save(post);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(savedPost.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/jpa/users/{id}/posts/{postId}")
+    public ResponseEntity<Post> createPostForUser(@PathVariable Integer id, @PathVariable Integer postId) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()) {
+            throw new UserNotFoundException("id:" + id);
+        }
+
+        Optional<Post> post = postRepository.findById(postId);
+        if (post.isEmpty()) {
+            throw new PostNotFoundException("postId:" + post);
+        }
+        return ResponseEntity.ok(post.get());
     }
 }
